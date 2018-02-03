@@ -1,0 +1,66 @@
+*************************** Merge sort test ***************************
+------------------------ Random array test ------------------------
+Array Size = 1000
+{Average comparison=8704.9, Average time=0.4}
+Array Size = 2000
+{Average comparison=19406.3, Average time=0.4}
+Array Size = 4000
+{Average comparison=42827.9, Average time=0.9}
+------------------------ Sorted array test ------------------------
+Array Size = 1000
+{Average comparison=5044.0, Average time=0.1}
+Array Size = 2000
+{Average comparison=11088.0, Average time=0.1}
+Array Size = 4000
+{Average comparison=24176.0, Average time=0.4}
+------------------------ Reverse array test ------------------------
+Array Size = 1000
+{Average comparison=4932.0, Average time=0.1}
+Array Size = 2000
+{Average comparison=10864.0, Average time=0.2}
+Array Size = 4000
+{Average comparison=23728.0, Average time=0.4}
+*************************** Heap sort test ***************************
+------------------------ Random array test ------------------------
+Array Size = 1000
+{Average comparison=16852.2, Average time=0.3}
+Array Size = 2000
+{Average comparison=37720.1, Average time=0.3}
+Array Size = 4000
+{Average comparison=83424.7, Average time=0.5}
+------------------------ Sorted array test ------------------------
+Array Size = 1000
+{Average comparison=17583.0, Average time=0.1}
+Array Size = 2000
+{Average comparison=39159.0, Average time=0.2}
+Array Size = 4000
+{Average comparison=86576.0, Average time=0.4}
+------------------------ Reverse array test ------------------------
+Array Size = 1000
+{Average comparison=15965.0, Average time=0.1}
+Array Size = 2000
+{Average comparison=35964.0, Average time=0.2}
+Array Size = 4000
+{Average comparison=80151.0, Average time=0.4}
+*************************** Insertion sort test ***************************
+------------------------ Random array test ------------------------
+Array Size = 1000
+{Average comparison=251775.3, Average time=2.7}
+Array Size = 2000
+{Average comparison=998058.9, Average time=1.5}
+Array Size = 4000
+{Average comparison=4000737.7, Average time=5.8}
+------------------------ Sorted array test ------------------------
+Array Size = 1000
+{Average comparison=999.0, Average time=0.1}
+Array Size = 2000
+{Average comparison=1999.0, Average time=0.0}
+Array Size = 4000
+{Average comparison=3999.0, Average time=0.1}
+------------------------ Reverse array test ------------------------
+Array Size = 1000
+{Average comparison=499500.0, Average time=0.8}
+Array Size = 2000
+{Average comparison=1999000.0, Average time=3.1}
+Array Size = 4000
+{Average comparison=7998000.0, Average time=12.3}

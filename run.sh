@@ -1,0 +1,1 @@
+java -jar project1.jar -Xmx4096m -Xms2048m
