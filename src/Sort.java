@@ -1,8 +1,5 @@
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  *
@@ -10,9 +7,8 @@ import java.util.Map;
  */
 abstract public class Sort {
     private static final int SAMPLE_SIZE = 10;
-//    private static final int[] arraySizes = {100000, 200000, 400000, 800000, 1600000, 3200000, 6400000, 12800000};
-//    private static final int[] arraySizes = {1000, 2000, 4000};
-//    private static final int[] arraySizes = {6400000, 12800000};
+    private static final String KEY_COMPARISON = "Comparison";
+    private static final String KEY_TIME = "Time";
     protected RecordComparator comp;
 
     public Sort(RecordComparator comp) {
@@ -44,25 +40,22 @@ abstract public class Sort {
     }
 
     public static void standardTest(Sort sort) throws IOException {
-        long startTime, endTime;
         Integer[] array = readArray(System.in);
-        sort.comp.setCount(0);
-        startTime=System.currentTimeMillis();
-        sort.sort(array);
-        endTime=System.currentTimeMillis();
+        Map<String, Number> report = sort.testSort(array);
         for(Integer i: array) System.out.println(i);
-        System.err.println("runtime," + (endTime - startTime));
-        System.err.println("comparisons," + sort.comp.getCount());
+        System.err.println("runtime," + report.get(KEY_TIME));
+        System.err.println("comparisons," + report.get(KEY_COMPARISON));
     }
 
     public Map<String, Number> testSort(Integer[] array) {
         Map<String, Number> report = new HashMap<>();
         long startTime, endTime;
+        comp.setCount(0);
         startTime=System.currentTimeMillis();
         sort(array);
         endTime=System.currentTimeMillis();
-        report.put("Time", endTime - startTime);
-        report.put("Comparison", comp.getCount());
+        report.put(KEY_TIME, endTime - startTime);
+        report.put(KEY_COMPARISON, comp.getCount());
         return report;
     }
 
@@ -92,88 +85,92 @@ abstract public class Sort {
         return report;
     }
 
-    protected void testAllList(int[] arraySizes) throws Throwable {
-        ArrayList<ArrayList<Integer>> arrayList = new ArrayList<>(SAMPLE_SIZE);
+//    protected void testAllList(int[] arraySizes) throws Throwable {
+//        ArrayList<ArrayList<Integer>> arrayList = new ArrayList<>(SAMPLE_SIZE);
+//
+//        // Test random array
+//        System.out.println("------------------------ Random array test ------------------------");
+//        for(int arraySize: arraySizes) {
+//            arrayList.clear();
+//            finalize();
+//            for (int i = 0; i < SAMPLE_SIZE; i++)
+//                arrayList.add(ArrayFactory.createRandomArrayList(arraySize));
+//            Map<String, Number> report = testList(arrayList);
+//            System.out.println("Array Size = " + arraySize);
+//            System.out.println(report);
+//        }
+//
+//        // Test sorted array
+//        System.out.println("------------------------ Sorted array test ------------------------");
+//        for(int arraySize: arraySizes) {
+//            arrayList.clear();
+//            finalize();
+//            for (int i = 0; i < SAMPLE_SIZE; i++)
+//                arrayList.add(ArrayFactory.createSortedArrayList(arraySize, true));
+//            Map<String, Number> report = testList(arrayList);
+//            System.out.println("Array Size = " + arraySize);
+//            System.out.println(report);
+//        }
+//
+//        // Test sorted array
+//        System.out.println("------------------------ Reverse array test ------------------------");
+//        for(int arraySize: arraySizes) {
+//            arrayList.clear();
+//            finalize();
+//            for (int i = 0; i < SAMPLE_SIZE; i++)
+//                arrayList.add(ArrayFactory.createSortedArrayList(arraySize, false));
+//            Map<String, Number> report = testList(arrayList);
+//            System.out.println("Array Size = " + arraySize);
+//            System.out.println(report);
+//        }
+//    }
 
+    protected static void testAllArray(Sort[] sorts, int[] arraySizes, ArrayFactory arrayFactory, PrintStream out, String title) throws Throwable {
         // Test random array
-        System.out.println("------------------------ Random array test ------------------------");
+        System.out.println(title);
+        out.println(title);
         for(int arraySize: arraySizes) {
-            arrayList.clear();
-            finalize();
-            for (int i = 0; i < SAMPLE_SIZE; i++)
-                arrayList.add(ArrayFactory.createRandomArrayList(arraySize));
-            Map<String, Number> report = testList(arrayList);
-            System.out.println("Array Size = " + arraySize);
-            System.out.println(report);
-        }
+            // Log on console
+            System.out.print("Array Size = " + arraySize + "\tX");
 
-        // Test sorted array
-        System.out.println("------------------------ Sorted array test ------------------------");
-        for(int arraySize: arraySizes) {
-            arrayList.clear();
-            finalize();
-            for (int i = 0; i < SAMPLE_SIZE; i++)
-                arrayList.add(ArrayFactory.createSortedArrayList(arraySize, true));
-            Map<String, Number> report = testList(arrayList);
-            System.out.println("Array Size = " + arraySize);
-            System.out.println(report);
-        }
+            // Initialize reports data structure
+            ArrayList<Map<String, List<Number>>> reports = new ArrayList<>(sorts.length);
+            for(int i = 0; i < sorts.length; i++) {
+                Map<String, List<Number>> report = new HashMap<>();
+                report.put(KEY_TIME, new ArrayList<>(SAMPLE_SIZE));
+                report.put(KEY_COMPARISON, new ArrayList<>(SAMPLE_SIZE));
+                reports.add(report);
+            }
 
-        // Test sorted array
-        System.out.println("------------------------ Reverse array test ------------------------");
-        for(int arraySize: arraySizes) {
-            arrayList.clear();
-            finalize();
-            for (int i = 0; i < SAMPLE_SIZE; i++)
-                arrayList.add(ArrayFactory.createSortedArrayList(arraySize, false));
-            Map<String, Number> report = testList(arrayList);
-            System.out.println("Array Size = " + arraySize);
-            System.out.println(report);
-        }
-    }
+            // Test the same sample on each sort algorithm
+            for (int i = 0; i < SAMPLE_SIZE; i++) {
+                Integer[][] arrays = new Integer[sorts.length][];
+                arrays[0] = arrayFactory.createArray(arraySize);
+                for(int j = 1; j < sorts.length; j++) arrays[j] = Arrays.copyOf(arrays[0], arraySize);
+                for(int j = 0; j < sorts.length; j++) {
+                    Map<String, Number> report = sorts[j].testSort(arrays[j]);
+                    reports.get(j).get(KEY_TIME).add(report.get(KEY_TIME));
+                    reports.get(j).get(KEY_COMPARISON).add(report.get(KEY_COMPARISON));
+                    System.out.print('.');
+                }
+                System.out.print('X');
+            }
+            System.out.println();
 
-    protected void testAllArray(int[] arraySizes, PrintStream out) throws Throwable {
-        ArrayList<Integer[]> arrayList = new ArrayList<>(SAMPLE_SIZE);
-
-        // Test random array
-        out.println("------------------------ Random array test ------------------------");
-        for(int arraySize: arraySizes) {
-            arrayList.clear();
-            finalize();
-            System.out.println("Array Size = " + arraySize);
-            for (int i = 0; i < SAMPLE_SIZE; i++)
-                arrayList.add(ArrayFactory.createRandomArray(arraySize));
-            Map<String, Number> report = testArray(arrayList);
-            out.println("Array Size = " + arraySize);
-            out.println(report);
-            out.flush();
-        }
-
-        // Test sorted array
-        out.println("------------------------ Sorted array test ------------------------");
-        for(int arraySize: arraySizes) {
-            arrayList.clear();
-            finalize();
-            System.out.println("Array Size = " + arraySize);
-            for (int i = 0; i < SAMPLE_SIZE; i++)
-                arrayList.add(ArrayFactory.createSortedArray(arraySize, true));
-            Map<String, Number> report = testArray(arrayList);
-            out.println("Array Size = " + arraySize);
-            out.println(report);
-            out.flush();
-        }
-
-        // Test sorted array
-        out.println("------------------------ Reverse array test ------------------------");
-        for(int arraySize: arraySizes) {
-            arrayList.clear();
-            finalize();
-            System.out.println("Array Size = " + arraySize);
-            for (int i = 0; i < SAMPLE_SIZE; i++)
-                arrayList.add(ArrayFactory.createSortedArray(arraySize, false));
-            Map<String, Number> report = testArray(arrayList);
-            out.println("Array Size = " + arraySize);
-            out.println(report);
+            // Output report
+            out.println("***************** Array Size = " + arraySize + " *****************");
+            for(int i = 0; i < sorts.length; i++) {
+                Map<String, List<Number>> report = reports.get(i);
+                List<Number> times = report.get(KEY_TIME), comparisons = report.get(KEY_COMPARISON);
+                long totalTime = 0, totalComparison = 0;
+                for(Number comparison: comparisons) totalComparison += (long)comparison;
+                for(Number time: times) totalTime += (long)time;
+                out.println(sorts[i].getClass().getName() + " report:");
+                out.println("\tTimes:\t" + times);
+                out.println("\tAverage Time:\t" + totalTime/(float)SAMPLE_SIZE);
+                out.println("\tComparisons:\t" + comparisons);
+                out.println("\tAverage Comparison:\t" + totalComparison/(float)SAMPLE_SIZE);
+            }
             out.flush();
         }
     }
