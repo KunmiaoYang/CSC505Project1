@@ -93,7 +93,7 @@ public class Main {
                 out.println("\tTimes=\t" + times);
                 out.println("\tAverageTime=\t" + avgTime);
                 out.println("\tComparisons=\t" + comparisons);
-                out.println("\tAverageComparison=\t" + avgTime);
+                out.println("\tAverageComparison=\t" + avgComparison);
             }
             out.flush();
         }
