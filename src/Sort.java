@@ -6,9 +6,8 @@ import java.util.*;
  * Created by Kunmiao Yang on 2/1/2018.
  */
 abstract public class Sort {
-    private static final int SAMPLE_SIZE = 10;
-    private static final String KEY_COMPARISON = "Comparison";
-    private static final String KEY_TIME = "Time";
+    public static final String KEY_COMPARISON = "Comparison";
+    public static final String KEY_TIME = "Time";
     protected RecordComparator comp;
 
     public Sort(RecordComparator comp) {
@@ -124,54 +123,4 @@ abstract public class Sort {
 //            System.out.println(report);
 //        }
 //    }
-
-    protected static void testAllArray(Sort[] sorts, int[] arraySizes, ArrayFactory arrayFactory, PrintStream out, String title) throws Throwable {
-        // Test random array
-        System.out.println(title);
-        out.println(title);
-        for(int arraySize: arraySizes) {
-            // Log on console
-            System.out.print("Array Size = " + arraySize + "\tX");
-
-            // Initialize reports data structure
-            ArrayList<Map<String, List<Number>>> reports = new ArrayList<>(sorts.length);
-            for(int i = 0; i < sorts.length; i++) {
-                Map<String, List<Number>> report = new HashMap<>();
-                report.put(KEY_TIME, new ArrayList<>(SAMPLE_SIZE));
-                report.put(KEY_COMPARISON, new ArrayList<>(SAMPLE_SIZE));
-                reports.add(report);
-            }
-
-            // Test the same sample on each sort algorithm
-            for (int i = 0; i < SAMPLE_SIZE; i++) {
-                Integer[][] arrays = new Integer[sorts.length][];
-                arrays[0] = arrayFactory.createArray(arraySize);
-                for(int j = 1; j < sorts.length; j++) arrays[j] = Arrays.copyOf(arrays[0], arraySize);
-                for(int j = 0; j < sorts.length; j++) {
-                    Map<String, Number> report = sorts[j].testSort(arrays[j]);
-                    reports.get(j).get(KEY_TIME).add(report.get(KEY_TIME));
-                    reports.get(j).get(KEY_COMPARISON).add(report.get(KEY_COMPARISON));
-                    System.out.print('.');
-                }
-                System.out.print('X');
-            }
-            System.out.println();
-
-            // Output report
-            out.println("***************** Array Size = " + arraySize + " *****************");
-            for(int i = 0; i < sorts.length; i++) {
-                Map<String, List<Number>> report = reports.get(i);
-                List<Number> times = report.get(KEY_TIME), comparisons = report.get(KEY_COMPARISON);
-                long totalTime = 0, totalComparison = 0;
-                for(Number comparison: comparisons) totalComparison += (long)comparison;
-                for(Number time: times) totalTime += (long)time;
-                out.println(sorts[i].getClass().getName() + " report:");
-                out.println("\tTimes:\t" + times);
-                out.println("\tAverage Time:\t" + totalTime/(float)SAMPLE_SIZE);
-                out.println("\tComparisons:\t" + comparisons);
-                out.println("\tAverage Comparison:\t" + totalComparison/(float)SAMPLE_SIZE);
-            }
-            out.flush();
-        }
-    }
 }
