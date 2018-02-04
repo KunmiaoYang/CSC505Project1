@@ -1,16 +1,24 @@
 import java.util.ArrayList;
 
 /**
- *
+ * Heap Sort
  * Created by Kunmiao Yang on 2/1/2018.
  */
 public class HeapSort extends Sort {
-    private int end;
+    private int end;    // Indicate in the array the current end position of the tree
 
+    /**
+     * Initialize sort with comparator
+     * @param comp comparator used int the sort
+     */
     public HeapSort(RecordComparator comp) {
         super(comp);
     }
 
+    /**
+     * Sort the array
+     * @param array the array to be sorted
+     */
     @Override
     public void sort(ArrayList<Integer> array) {
         // Initialize the end index position
@@ -26,6 +34,10 @@ public class HeapSort extends Sort {
         }
     }
 
+    /**
+     * Sort the array
+     * @param array the array to be sorted
+     */
     @Override
     public void sort(Integer[] array) {
         // Initialize the end index position
@@ -41,6 +53,11 @@ public class HeapSort extends Sort {
         }
     }
 
+    /**
+     * Sift the number in the tree
+     * @param array the array to be sorted
+     * @param i the index of the number to be sifted
+     */
     private void sift(ArrayList<Integer> array, int i) {
         // Calculate the index of left child and assume it is the max of the children
         int max = 2 * i + 1;
@@ -61,6 +78,11 @@ public class HeapSort extends Sort {
         }
     }
 
+    /**
+     * Sift the number in the tree
+     * @param array the array to be sorted
+     * @param i the index of the number to be sifted
+     */
     private void sift(Integer[] array, int i) {
         // Calculate the index of left child and assume it is the max of the children
         int max = 2 * i + 1;
@@ -81,7 +103,13 @@ public class HeapSort extends Sort {
         }
     }
 
+    /**
+     * Main method
+     * @param args arguments
+     * @throws Throwable
+     */
     public static void main(String[] args) throws Throwable {
+        // Invoke the standard test framework
         standardTest(readArray(System.in), new HeapSort(new RecordComparator()));
     }
 }

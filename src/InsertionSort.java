@@ -2,14 +2,22 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 /**
- *
+ * Insertion sort
  * Created by Kunmiao Yang on 2/1/2018.
  */
 public class InsertionSort extends Sort {
+    /**
+     * Initialize sort with comparator
+     * @param comp comparator used int the sort
+     */
     public InsertionSort(RecordComparator comp) {
         super(comp);
     }
 
+    /**
+     * Sort the array
+     * @param array the array to be sorted
+     */
     @Override
     public void sort(ArrayList<Integer> array) {
         int n = array.size();
@@ -28,6 +36,10 @@ public class InsertionSort extends Sort {
         }
     }
 
+    /**
+     * Sort the array
+     * @param array the array to be sorted
+     */
     @Override
     public void sort(Integer[] array) {
         int n = array.length;
@@ -46,7 +58,13 @@ public class InsertionSort extends Sort {
         }
     }
 
+    /**
+     * Main method
+     * @param args arguments
+     * @throws Throwable
+     */
     public static void main(String[] args) throws Throwable {
+        // Invoke the standard test framework
         standardTest(readArray(System.in), new InsertionSort(new RecordComparator()));
     }
 }
