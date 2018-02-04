@@ -1,0 +1,75 @@
+ -------------------------------------- Random small array test -------------------------------------- 
+ ************************************* Array Size = 2 ************************************* 
+MergeSort report:
+	Times=	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+	AverageTime=	0.0
+	Comparisons=	[1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+	AverageComparison=	1.0
+InsertionSort report:
+	Times=	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+	AverageTime=	0.0
+	Comparisons=	[1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+	AverageComparison=	1.0
+ ************************************* Array Size = 4 ************************************* 
+MergeSort report:
+	Times=	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+	AverageTime=	0.0
+	Comparisons=	[4, 5, 5, 5, 5, 5, 5, 5, 5, 4]
+	AverageComparison=	4.8
+InsertionSort report:
+	Times=	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+	AverageTime=	0.0
+	Comparisons=	[4, 4, 5, 6, 5, 6, 5, 4, 5, 6]
+	AverageComparison=	5.0
+ ************************************* Array Size = 8 ************************************* 
+MergeSort report:
+	Times=	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+	AverageTime=	0.0
+	Comparisons=	[16, 16, 17, 16, 17, 16, 17, 17, 16, 16]
+	AverageComparison=	16.4
+InsertionSort report:
+	Times=	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+	AverageTime=	0.0
+	Comparisons=	[17, 21, 23, 23, 24, 18, 22, 21, 23, 15]
+	AverageComparison=	20.7
+ ************************************* Array Size = 16 ************************************* 
+MergeSort report:
+	Times=	[1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+	AverageTime=	0.1
+	Comparisons=	[45, 46, 47, 48, 45, 45, 45, 48, 43, 44]
+	AverageComparison=	45.6
+InsertionSort report:
+	Times=	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+	AverageTime=	0.0
+	Comparisons=	[48, 76, 66, 87, 82, 65, 91, 68, 81, 70]
+	AverageComparison=	73.4
+ ************************************* Array Size = 32 ************************************* 
+MergeSort report:
+	Times=	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+	AverageTime=	0.0
+	Comparisons=	[121, 120, 122, 123, 117, 124, 120, 125, 121, 123]
+	AverageComparison=	121.6
+InsertionSort report:
+	Times=	[0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
+	AverageTime=	0.1
+	Comparisons=	[292, 252, 234, 242, 283, 233, 254, 272, 280, 220]
+	AverageComparison=	256.2
+ ************************************* Array Size = 64 ************************************* 
+MergeSort report:
+	Times=	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+	AverageTime=	0.0
+	Comparisons=	[306, 310, 303, 308, 305, 312, 306, 304, 302, 308]
+	AverageComparison=	306.4
+InsertionSort report:
+	Times=	[0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
+	AverageTime=	0.1
+	Comparisons=	[1027, 1060, 1029, 1055, 1048, 1065, 1216, 1257, 909, 1153]
+	AverageComparison=	1081.9
+ ************************************* Summary  ************************************* 
+	ArraySize=	[2, 4, 8, 16, 32, 64]
+MergeSort summary:
+	AverageTime=	[0.0, 0.0, 0.0, 0.1, 0.0, 0.0]
+	AverageComparison=	[1.0, 4.8, 16.4, 45.6, 121.6, 306.4]
+InsertionSort summary:
+	AverageTime=	[0.0, 0.0, 0.0, 0.0, 0.1, 0.1]
+	AverageComparison=	[1.0, 5.0, 20.7, 73.4, 256.2, 1081.9]

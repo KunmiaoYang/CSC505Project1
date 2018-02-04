@@ -38,8 +38,8 @@ abstract public class Sort {
         return array;
     }
 
-    public static void standardTest(Sort sort) throws IOException {
-        Integer[] array = readArray(System.in);
+    public static void standardTest(Integer[] array, Sort sort) throws IOException {
+//        Integer[] array = readArray(System.in);
         Map<String, Number> report = sort.testSort(array);
         for(Integer i: array) System.out.println(i);
         System.err.println("runtime," + report.get(KEY_TIME));

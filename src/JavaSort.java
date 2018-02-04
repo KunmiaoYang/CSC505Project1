@@ -22,6 +22,6 @@ public class JavaSort extends Sort {
     }
 
     public static void main(String[] args) throws Throwable {
-        standardTest(new JavaSort(new RecordComparator()));
+        standardTest(readArray(System.in), new JavaSort(new RecordComparator()));
     }
 }

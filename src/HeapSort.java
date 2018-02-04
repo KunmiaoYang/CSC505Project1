@@ -82,6 +82,6 @@ public class HeapSort extends Sort {
     }
 
     public static void main(String[] args) throws Throwable {
-        standardTest(new HeapSort(new RecordComparator()));
+        standardTest(readArray(System.in), new HeapSort(new RecordComparator()));
     }
 }

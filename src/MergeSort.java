@@ -26,20 +26,20 @@ public class MergeSort extends Sort {
     @Override
     public void sort(Integer[] array) {
         // Allocate temporary array to store the merged array
-        tempArray = new Integer[array.length];
+        Integer[] tempArray = new Integer[array.length];
 
         // Use the recursive method to sort
-        sort(array, 0, array.length - 1);
+        sort(array, tempArray, 0, array.length - 1);
     }
 
-    private void sort(Integer[] array, int left, int right) {
+    private void sort(Integer[] array, Integer[] tempArray, int left, int right) {
         // If only one number is in this range, there is no need to sort
         if(left == right) return;
 
         // Divide the array into 2 half, and sort them separately
         int mid = (left + right - 1) / 2;
-        sort(array, left, mid);
-        sort(array, mid + 1, right);
+        sort(array, tempArray, left, mid);
+        sort(array, tempArray, mid + 1, right);
 
         // Merge the 2 sorted array until one of them finishes
         int i, l, r;
@@ -79,6 +79,6 @@ public class MergeSort extends Sort {
     }
 
     public static void main(String[] args) throws Throwable {
-        standardTest(new MergeSort(new RecordComparator()));
+        standardTest(readArray(System.in), new MergeSort(new RecordComparator()));
     }
 }

@@ -47,6 +47,6 @@ public class InsertionSort extends Sort {
     }
 
     public static void main(String[] args) throws Throwable {
-        standardTest(new InsertionSort(new RecordComparator()));
+        standardTest(readArray(System.in), new InsertionSort(new RecordComparator()));
     }
 }
